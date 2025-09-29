@@ -1,0 +1,20 @@
+name: supabase-check
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  secret-and-env-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if .env files are present
+        run: |
+          if git ls-files | grep -E '^.(env(.*)?$' ; then
+            echo \".env-like files must not be committed\"
+            exit 1
+        - name: Scan for obvious Supabase keys (heuristic)
+        run: |
+          if git grep -nE '(supabase.*( (anon |service))*.+key|SUPABASE_(ANON|SERVICE)_KEY)' -- . ':!**/.github/**!' ; then
+            echo \"Potential Supabase secret detected. Remove and use GitHub Secrets instead.\"
+            exit 1
