@@ -1,0 +1,9 @@
+{
+  "name": "Capsule iOS Preview",
+  "short_name": "Capsule",
+  "description": "Preview of Capsule iOS app",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}
